@@ -1,0 +1,200 @@
+
+Creating Measures and Calculated Columns
+13
+<div style="margin: 0px;"><p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">-Measures<br>
+&nbsp; &nbsp; Right click on the measure table and select new measure.<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp; &nbsp;&nbsp;<b>Total Subscribers&nbsp;</b>=
+CALCULATE(DISTINCTCOUNT&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp;(vw_ADF_PaySimple_ISA_Reporting[UserID])+0)<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp; &nbsp;&nbsp;<b>%SMI Total Subscribers&nbsp;</b>=
+DIVIDE([.SMI TotalSubscribers],[Total Subscribers])+0<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp; &nbsp;&nbsp;<b>%Option3 Total Subscribers</b>&nbsp;=
+DIVIDE([.Option3 Total Subscribers],[Total &nbsp; Subscribers])+0<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp; &nbsp;&nbsp;<b>%Total Subscribers</b>&nbsp;=
+DIVIDE('Measures Table'[.Subscribers by started Mth&nbsp; Bk],'Measures
+Table'[.Total Subscribers Row by row])<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp; &nbsp;&nbsp;<b>Loss Subscribers</b>&nbsp;=
+DIVIDE([Next Month complete Subsc],[Total Subscribers])+0<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp; &nbsp;<b>No Payment Made</b>&nbsp;=&nbsp; &nbsp;
+&nbsp;
+&nbsp;CALCULATE(DISTINCTCOUNT(vw_ADF_PaySimple_ISA_Reporting[UserID]),FILTER(vw_ADF_PaySimple_ISA_Reporting,vw_ADF_PaySimple_ISA_Reporting[SMIC_PaymentCnt]&lt;=0))<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp;&nbsp;<b>%SMI NoPaymentMade&nbsp;</b>= DIVIDE([.SMI
+NoPaymentMade],[Total Subscribers])+0<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp;&nbsp;<b>%Option3 NoPaymentMade</b>&nbsp;=
+DIVIDE([.Option3 NoPaymentMade],[Total Subscribers])+0<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp;&nbsp;<b>%Started Mths Bk Recent&nbsp;</b>=
+DIVIDE([Started Mths BK Recent],[Total Subscribers])+0<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp;&nbsp;<b>%Started Mths Bk Non Recent&nbsp;</b>=
+DIVIDE([Started Mths BK Non Recent],[Total Subscribers])+0<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp;&nbsp;<b>Last Payment&gt;2&nbsp;</b>=
+CALCULATE(DISTINCTCOUNT(vw_ADF_PaySimple_ISA_Reporting[UserID]),FILTER(vw_ADF_PaySimple_ISA_Reporting,vw_ADF_PaySimple_ISA_Reporting[LastPayment_Mths]&gt;2))<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp;&nbsp;<b>%SMI Last Payment&gt;2&nbsp;</b>=
+DIVIDE([.SMI Last Payment&gt;2],[Total Subscribers])+0<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp;&nbsp;<b>%Option3 Last Payment&gt;2</b>&nbsp;=
+DIVIDE([.Option3 Last Payment&gt;2],[Total Subscribers])+0<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp;&nbsp;<b>%Last Payment Recent&nbsp;</b>= DIVIDE([Last
+payment Recent],[Total Subscribers])+0<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp;&nbsp;<b>%Last Payment Non Recent&nbsp;</b>=
+DIVIDE([Last Payment Non Recent],[Total Subscribers])+0<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp; &nbsp;<b>Late Payment</b>&nbsp;= CALCULATE([Total
+Subscribers],FILTER(vw_ADF_PaySimple_ISA_Reporting,vw_ADF_PaySimple_ISA_Reporting[SMIC_NextPaymentDate]
+&lt;TODAY()),<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">NOT ISBLANK(vw_ADF_PaySimple_ISA_Reporting[SMIC_NextPaymentDate]))<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp;&nbsp;<b>%SMI Late Payment&nbsp;</b>= DIVIDE([.SMI
+Late Payment],[Total Subscribers])+0<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp;&nbsp;<b>%Option 3Late Payment</b>&nbsp;=
+DIVIDE([.Option 3Late Payment],[Total Subscribers])+0<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp;&nbsp;<b>Option 3Late Payment</b>&nbsp;=
+CALCULATE([Total Subscribers],FILTER(vw_ADF_PaySimple_ISA_Reporting,vw_ADF_PaySimple_ISA_Reporting[SMIC_NextPaymentDate]
+&lt;TODAY()),<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">NOT
+ISBLANK(vw_ADF_PaySimple_ISA_Reporting[SMIC_NextPaymentDate]),FILTER(vw_ADF_PaySimple_ISA_Reporting,vw_ADF_PaySimple_ISA_Reporting[SMIC_StatusName]=
+"Option 3"))<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp;&nbsp;<b>Option3 Last Payment&gt;2</b>&nbsp;=
+CALCULATE(DISTINCTCOUNT(vw_ADF_PaySimple_ISA_Reporting[UserID]),FILTER(vw_ADF_PaySimple_ISA_Reporting,vw_ADF_PaySimple_ISA_Reporting[LastPayment_Mths]&gt;2),FILTER(vw_ADF_PaySimple_ISA_Reporting,vw_ADF_PaySimple_ISA_Reporting[SMIC_StatusName]="Option
+3"))<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp;&nbsp;<b>Option3 NoPaymentMade</b>&nbsp;=
+CALCULATE(DISTINCTCOUNT(vw_ADF_PaySimple_ISA_Reporting[UserID]),FILTER(vw_ADF_PaySimple_ISA_Reporting,vw_ADF_PaySimple_ISA_Reporting[SMIC_PaymentCnt]&lt;=0),FILTER(vw_ADF_PaySimple_ISA_Reporting,[SMIC_StatusName]="Option
+3"))<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp;&nbsp;<b>Option3 Total Subscribers</b>&nbsp;=
+CALCULATE([Total
+Subscribers],FILTER(vw_ADF_PaySimple_ISA_Reporting,[SMIC_StatusName]=
+"Option 3"))<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp;&nbsp;<b>SMI Last Payment&gt;2</b>&nbsp;=
+CALCULATE(DISTINCTCOUNT(vw_ADF_PaySimple_ISA_Reporting[UserID]),FILTER(vw_ADF_PaySimple_ISA_Reporting,vw_ADF_PaySimple_ISA_Reporting[LastPayment_Mths]&gt;2),FILTER(vw_ADF_PaySimple_ISA_Reporting,vw_ADF_PaySimple_ISA_Reporting[SMIC_StatusName]="SMI"))<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp;&nbsp;<b>SMI Late Payment</b>&nbsp;= CALCULATE([Total
+Subscribers],FILTER(vw_ADF_PaySimple_ISA_Reporting,vw_ADF_PaySimple_ISA_Reporting[SMIC_NextPaymentDate]
+&lt;TODAY()),<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">NOT
+ISBLANK(vw_ADF_PaySimple_ISA_Reporting[SMIC_NextPaymentDate]),FILTER(vw_ADF_PaySimple_ISA_Reporting,vw_ADF_PaySimple_ISA_Reporting[SMIC_StatusName]=
+"SMI"))<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp;&nbsp;<b>SMI NoPaymentMade</b>&nbsp;= CALCULATE(DISTINCTCOUNT(vw_ADF_PaySimple_ISA_Reporting[UserID]),FILTER(vw_ADF_PaySimple_ISA_Reporting,vw_ADF_PaySimple_ISA_Reporting[SMIC_PaymentCnt]&lt;=0),FILTER(vw_ADF_PaySimple_ISA_Reporting,[SMIC_StatusName]="SMI"))<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp;&nbsp;<b>SMI TotalSubscribers&nbsp;</b>=
+CALCULATE([Total
+Subscribers],FILTER(vw_ADF_PaySimple_ISA_Reporting,[SMIC_StatusName]=
+"SMI"))<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp;&nbsp;<b>Subscribers by started Mth Bk</b>&nbsp;=
+IF(ISBLANK(SELECTEDVALUE(vw_ADF_PaySimple_ISA_Reporting[Started_MthsBk])),
+SUMX(filter(vw_ADF_PaySimple_ISA_Reporting,vw_ADF_PaySimple_ISA_Reporting[Started_MthsBk]=0),[Total
+Subscribers]),SUMX(VALUES(vw_ADF_PaySimple_ISA_Reporting[Started_MthsBk]),[Total
+Subscribers]))<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp;&nbsp;<b>Total Subscribers Row by row</b>&nbsp;=
+CALCULATE([Total Subscribers],ALL(vw_ADF_PaySimple_ISA_Reporting))<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp;&nbsp;<b>AVG Payment Amount</b>&nbsp;=
+CALCULATE(DIVIDE(SUM(vw_ADF_PaySimple_ISA_Reporting[SMIC_PaymentAmount]),COUNT(vw_ADF_PaySimple_ISA_Reporting[SMIC_PaymentAmount])))<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp;<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp;&nbsp;<b>Last Payment Non Recent</b>&nbsp;=
+CALCULATE(DISTINCTCOUNT(vw_ADF_PaySimple_ISA_Reporting[UserID]),FILTER(vw_ADF_PaySimple_ISA_Reporting,vw_ADF_PaySimple_ISA_Reporting[LastPayment_Mths]&gt;=2),FILTER(vw_ADF_PaySimple_ISA_Reporting,vw_ADF_PaySimple_ISA_Reporting[SMIC_PaymentsRemaining_Cnt]
+&gt; 0))<br>
+<!--[if !supportLineBreakNewLine]--><br>
+<!--[endif]--><o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp;&nbsp;<b>Last payment Recent</b>&nbsp;=
+CALCULATE(DISTINCTCOUNT(vw_ADF_PaySimple_ISA_Reporting[UserID]),FILTER(vw_ADF_PaySimple_ISA_Reporting,vw_ADF_PaySimple_ISA_Reporting[LastPayment_Mths]&lt;2))<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">Next Month complete Subsc = CALCULATE([Total
+Subscribers],FILTER(vw_ADF_PaySimple_ISA_Reporting,vw_ADF_PaySimple_ISA_Reporting[SMIC_PaymentsRemaining_Cnt]=1))<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp;<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp;&nbsp;<b>Started Mths Bk Non Recent&nbsp;</b>=
+CALCULATE(DISTINCTCOUNT(vw_ADF_PaySimple_ISA_Reporting[UserID]),FILTER(vw_ADF_PaySimple_ISA_Reporting,vw_ADF_PaySimple_ISA_Reporting[Started_MthsBk]&gt;1),FILTER(vw_ADF_PaySimple_ISA_Reporting,vw_ADF_PaySimple_ISA_Reporting[SMIC_PaymentTotal]
+= 0))<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp;<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp;&nbsp;<b>Started Mths BK Recent&nbsp;</b>=
+CALCULATE(DISTINCTCOUNT(vw_ADF_PaySimple_ISA_Reporting[UserID]),FILTER(vw_ADF_PaySimple_ISA_Reporting,vw_ADF_PaySimple_ISA_Reporting[Started_MthsBk]&lt;=1),FILTER(vw_ADF_PaySimple_ISA_Reporting,vw_ADF_PaySimple_ISA_Reporting[SMIC_PaymentTotal]
+= 0))<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp;&nbsp;<b>URLDataLink&nbsp;</b>=
+SWITCH(TRUE(),ISINSCOPE(vw_ADF_PaySimple_ISA_Reporting[.SMIC_DateAdded-UserID-Ps_CustomerID]),
+VALUES(vw_ADF_PaySimple_ISA_Reporting[DataLink])," ")&nbsp;<o:p></o:p></span></p>
+
+<p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;">&nbsp;<b>ColorNextPaymentDate</b>&nbsp;=
+IF(MAX(vw_ADF_PaySimple_ISA_Reporting[SMIC_NextPaymentDate])&lt;TODAY(),"RED",
+"BLACK")</span></p><p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;"><o:p><br></o:p></span></p><p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><img src="https://app.colaberry.com/uploads/ProjectStepsImages/1215/13/1.gif" style="width: 100%;"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;"><o:p><br></o:p></span></p><p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;"><o:p><br></o:p></span></p><p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="color: rgb(40, 60, 70); font-family: -apple-system, system-ui, BlinkMacSystemFont, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;; font-size: 18px;">-Create a new columns named SMIC_DateAdded - UserID - PS_CustomerID in the&nbsp; main table</span><br style="color: rgb(40, 60, 70); font-family: -apple-system, system-ui, BlinkMacSystemFont, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;; font-size: 18px;"><span style="color: rgb(40, 60, 70); font-family: -apple-system, system-ui, BlinkMacSystemFont, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;; font-size: 18px;">&nbsp; &nbsp; Right click the table-&gt;New column-&gt;type in the formula below</span><br style="color: rgb(40, 60, 70); font-family: -apple-system, system-ui, BlinkMacSystemFont, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;; font-size: 18px;"><span style="color: rgb(40, 60, 70); font-family: -apple-system, system-ui, BlinkMacSystemFont, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;; font-size: 18px;">&nbsp; &nbsp; .SMIC_DateAdded-UserID-Ps_CustomerID = &nbsp; (vw_ADF_PaySimple_ISA_Reporting[SMIC_DateAdded])&amp; "-"&amp;&nbsp; vw_ADF_PaySimple_ISA_Reporting[UserID]&amp; "-"&amp; vw_ADF_PaySimple_ISA_Reporting[PS_CustomerID]</span><br style="color: rgb(40, 60, 70); font-family: -apple-system, system-ui, BlinkMacSystemFont, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;; font-size: 18px;"><br style="color: rgb(40, 60, 70); font-family: -apple-system, system-ui, BlinkMacSystemFont, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;; font-size: 18px;"><span style="color: rgb(40, 60, 70); font-family: -apple-system, system-ui, BlinkMacSystemFont, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;; font-size: 18px;">&nbsp; &nbsp; -Create a new column named Sort_DateAdded_UserID in order to sort the&nbsp; SMIC_DateAdded - UserID - PS_CustomerID column that will be used in the second level drill down of the matrix</span><br style="color: rgb(40, 60, 70); font-family: -apple-system, system-ui, BlinkMacSystemFont, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;; font-size: 18px;"><span style="color: rgb(40, 60, 70); font-family: -apple-system, system-ui, BlinkMacSystemFont, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;; font-size: 18px;">&nbsp; &nbsp; Right click the main table-&gt;"New column" and type in the formula.</span><br style="color: rgb(40, 60, 70); font-family: -apple-system, system-ui, BlinkMacSystemFont, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;; font-size: 18px;"><span style="color: rgb(40, 60, 70); font-family: -apple-system, system-ui, BlinkMacSystemFont, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;; font-size: 18px;">&nbsp; &nbsp; Then sort the SMIC_DateAdded - UserID - PS_CustomerID column by the new created column Sort_DateAdded_User ID.</span></p><p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><img src="https://app.colaberry.com/uploads/ProjectStepsImages/1215/13/2.gif" style="width: 100%;"><span style="color: rgb(40, 60, 70); font-family: -apple-system, system-ui, BlinkMacSystemFont, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;; font-size: 18px;"><br></span></p><p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="color: rgb(40, 60, 70); font-family: -apple-system, system-ui, BlinkMacSystemFont, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;; font-size: 18px;"><br></span></p><p class="MsoNormal" style="margin-bottom:0in;line-height:normal"><span style="color: rgb(40, 60, 70); font-family: -apple-system, system-ui, BlinkMacSystemFont, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;; font-size: 18px;"><br></span><span style="font-size:12.0pt;font-family:&quot;Times New Roman&quot;,serif;mso-fareast-font-family:
+&quot;Times New Roman&quot;"><o:p><br></o:p></span></p></div>
+
+<p><a href="http://Using measures in calculated columns." target="_blank">Using measures in calculated columns.</a>https://community.powerbi.com/t5/Desktop/Using-measures-in-calculated-columns/m-p/101386</p>
+
